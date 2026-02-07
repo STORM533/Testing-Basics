@@ -23,8 +23,24 @@ const calculator = {
 function reverseString(string) {
     return string.split("").reverse().join("");
 }
-function ceaserCipher() {
+function shiftChar(char, shift) {
+  const isUpper = char >= "A" && char <= "Z";
+  const isLower = char >= "a" && char <= "z";
 
+  if (!isUpper && !isLower) return char;
+
+  const base = isUpper ? "A".charCodeAt(0) : "a".charCodeAt(0);
+  const code = char.charCodeAt(0) - base;
+  const shifted = (code + shift) % 26;
+
+  return String.fromCharCode(shifted + base);
+}
+
+function caesarCipher(str, shift) {
+  return str
+    .split("")
+    .map(char => shiftChar(char, shift))
+    .join("");
 }
 function analyzeArray(arr) {
   if (!Array.isArray(arr) || arr.length === 0) {
@@ -47,4 +63,4 @@ function analyzeArray(arr) {
 
 
 
-export {capitalize,reverseString,calculator,ceaserCipher,analyzeArray};
+export {capitalize,reverseString,calculator,caesarCipher,analyzeArray};

@@ -1,4 +1,4 @@
-import { capitalize,reverseString,calculator,analyzeArray,ceaserCipher } from "./testing";
+import { capitalize,reverseString,calculator,analyzeArray,caesarCipher } from "./testing";
 
 test('return capital string',()=>{
     expect(capitalize('storm')).toBe('Storm');
@@ -55,5 +55,26 @@ describe("calculator", () => {
   test("throws error when dividing by zero", () => {
     expect(() => calculator.divide(10, 0))
       .toThrow("Division by zero is not allowed");
+  });
+});
+describe("caesarCipher", () => {
+  test("shifts lowercase letters", () => {
+    expect(caesarCipher("abc", 1)).toBe("bcd");
+  });
+
+  test("wraps from z to a", () => {
+    expect(caesarCipher("xyz", 3)).toBe("abc");
+  });
+
+  test("preserves letter case", () => {
+    expect(caesarCipher("HeLLo", 3)).toBe("KhOOr");
+  });
+
+  test("leaves punctuation and spaces unchanged", () => {
+    expect(caesarCipher("Hello, World!", 3)).toBe("Khoor, Zruog!");
+  });
+
+  test("works with large shift factors", () => {
+    expect(caesarCipher("abc", 29)).toBe("def"); // 29 % 26 === 3
   });
 });
